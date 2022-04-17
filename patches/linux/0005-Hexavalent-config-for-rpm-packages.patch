@@ -1,0 +1,70 @@
+From 8ae20e8ac7e47eb6f51f68f52adff6eda352a47f Mon Sep 17 00:00:00 2001
+From: Zoraver Kang <Zoraver@users.noreply.github.com>
+Date: Sat, 16 Apr 2022 22:59:53 -0400
+Subject: [PATCH] Hexavalent config for rpm packages
+
+---
+ chrome/installer/linux/common/rpm.include | 19 +++++++++++++------
+ chrome/installer/linux/rpm/build.sh       |  3 ++-
+ 2 files changed, 15 insertions(+), 7 deletions(-)
+
+diff --git a/chrome/installer/linux/common/rpm.include b/chrome/installer/linux/common/rpm.include
+index ade563919ce76..4db07cc69b672 100644
+--- a/chrome/installer/linux/common/rpm.include
++++ b/chrome/installer/linux/common/rpm.include
+@@ -3,6 +3,9 @@
+ # Install the repository signing key (see also:
+ # https://www.google.com/linuxrepositories/)
+ install_rpm_key() {
++  # Since Hexavalent does not have a gpg key yet, return
++  return
++  
+   KEY_PACKAGE="gpg-pubkey-d38b4796-570c8cd3"
+   # Check to see if all keys already exists.
+   # Make sure all the most recent signing subkeys are installed.
+@@ -324,9 +327,11 @@ cat > "$YUM_REPO_FILE" << REPOCONTENT
+ [@@PACKAGE@@]
+ name=@@PACKAGE@@
+ baseurl=$REPOCONFIG/$DEFAULT_ARCH
+-enabled=1
+-gpgcheck=1
+-gpgkey=https://dl.google.com/linux/linux_signing_key.pub
++# Disabled until the repo is ready
++enabled=0
++# Disabled until we have a gpg key
++# gpgcheck=1
++# gpgkey=https://dl.google.com/linux/linux_signing_key.pub
+ REPOCONTENT
+   fi
+ }
+@@ -343,11 +348,13 @@ install_zypp() {
+ cat > "$ZYPPER_REPO_FILE" << REPOCONTENT
+ [@@PACKAGE@@]
+ name=@@PACKAGE@@
+-enabled=1
++# Disabled until the repo is ready
++enabled=0
+ autorefresh=1
+ baseurl=$REPOCONFIG/$DEFAULT_ARCH
+-gpgcheck=1
+-gpgkey=https://dl.google.com/linux/linux_signing_key.pub
++# Disabled until we have a gpg key
++# gpgcheck=1
++# gpgkey=https://dl.google.com/linux/linux_signing_key.pub
+ type=rpm-md
+ keeppackages=0
+ REPOCONTENT
+diff --git a/chrome/installer/linux/rpm/build.sh b/chrome/installer/linux/rpm/build.sh
+index 2fddfa260582d..394547adc94f5 100755
+--- a/chrome/installer/linux/rpm/build.sh
++++ b/chrome/installer/linux/rpm/build.sh
+@@ -234,7 +234,8 @@ fi
+ eval $(sed -e "s/^\([^=]\+\)=\(.*\)$/export \1='\2'/" \
+   "${OUTPUTDIR}/installer/theme/BRANDING")
+ 
+-REPOCONFIG="https://dl.google.com/linux/${PACKAGE#google-}/rpm/stable"
++# Placeholder?
++REPOCONFIG="https://dl.hexavalent.org/linux/${PACKAGE}/rpm/stable"
+ verify_channel
+ export USR_BIN_SYMLINK_NAME="${PACKAGE}-${CHANNEL}"
+ 
