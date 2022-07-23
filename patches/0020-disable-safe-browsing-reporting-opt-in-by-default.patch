@@ -1,4 +1,4 @@
-From cbf1ed86191c0f2dd222f316a9aadc8794deed32 Mon Sep 17 00:00:00 2001
+From 0e072b231163cc79fd023c508a49fdb114921f0e Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Fri, 12 Jul 2019 05:22:11 -0400
 Subject: [PATCH] disable safe browsing reporting opt-in by default

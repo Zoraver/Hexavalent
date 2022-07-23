@@ -1,4 +1,4 @@
-From 31fbda241a1837915f0248d3d7f2291161f3cd84 Mon Sep 17 00:00:00 2001
+From d0ff2ce94a82cfb5a614e2efddd15ff841612d08 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Tue, 25 Dec 2018 16:19:51 -0500
 Subject: [PATCH] disable seed-based field trials

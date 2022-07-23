@@ -1,4 +1,4 @@
-From 44ffc15c1558d5575bb639c73c0ae462f3d9d999 Mon Sep 17 00:00:00 2001
+From dcad02461eadceb3d976ed3b8398c2e270176dd5 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Fri, 12 Jul 2019 03:58:01 -0400
 Subject: [PATCH] disable offering translations by default
