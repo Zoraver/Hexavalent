@@ -1,4 +1,4 @@
-From b27b6da6fbacecea702ebfc31b2b643bea12c5e3 Mon Sep 17 00:00:00 2001
+From 700ba99edb578b9ff373663fc308b4ecf566c6aa Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Forbid dynamic code generation on Linux
@@ -171,7 +171,7 @@ index 5c44fdadeb1bc..7ff58983b6e81 100644
  
  }  // namespace policy
 diff --git a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
-index c01f257aff7f0..73f46a02cb9a6 100644
+index 36b21471ed006..9f95f12202708 100644
 --- a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 +++ b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 @@ -30,6 +30,8 @@
