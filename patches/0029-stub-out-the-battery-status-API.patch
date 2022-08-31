@@ -1,4 +1,4 @@
-From 18b1c51f570fc0bdbe9b5ed4a6b16361bc03a3e3 Mon Sep 17 00:00:00 2001
+From 1d7d453df3b8d7a5a9cbbece5e11eb7be137d8a8 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Mon, 17 Jun 2019 11:29:21 -0400
 Subject: [PATCH] stub out the battery status API

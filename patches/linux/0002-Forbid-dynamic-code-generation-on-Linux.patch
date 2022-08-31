@@ -1,4 +1,4 @@
-From 700ba99edb578b9ff373663fc308b4ecf566c6aa Mon Sep 17 00:00:00 2001
+From 51bb7937516f9b383748f122c2eac28c277cd7eb Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Forbid dynamic code generation on Linux
@@ -58,7 +58,7 @@ index 1ca63de3862b6..8b8fbf87f0220 100644
            SyscallSets::IsSystemVSharedMemory(system_call_number)) {
          return Allow();
 diff --git a/sandbox/policy/linux/bpf_renderer_policy_linux.cc b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
-index f789e92c37c1b..029c067c07e55 100644
+index 7ec641038af12..c286da9348325 100644
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 @@ -48,10 +48,29 @@ ResultExpr RestrictIoctl() {

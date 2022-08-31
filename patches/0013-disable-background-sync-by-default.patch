@@ -1,4 +1,4 @@
-From 76127534355390fa0df96abdf5ef53a226c56fc5 Mon Sep 17 00:00:00 2001
+From 5df661069cb355792cce8f7c0787308fe109892e Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Sun, 16 Jun 2019 21:57:26 -0400
 Subject: [PATCH] disable background sync by default

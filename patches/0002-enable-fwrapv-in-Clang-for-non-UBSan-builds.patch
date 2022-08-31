@@ -1,4 +1,4 @@
-From f78ed8a310a26724e95209ed9eb9199b6cbcc3d8 Mon Sep 17 00:00:00 2001
+From 86aa48a7af2ed09e86e99047dbc40d57b1213caa Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Thu, 22 Dec 2016 07:15:34 -0500
 Subject: [PATCH] enable -fwrapv in Clang for non-UBSan builds
@@ -8,10 +8,10 @@ Subject: [PATCH] enable -fwrapv in Clang for non-UBSan builds
  1 file changed, 4 insertions(+)
 
 diff --git a/build/config/compiler/BUILD.gn b/build/config/compiler/BUILD.gn
-index f43fc6814038e..9f22e8d7057b9 100644
+index fb065c5309b4b..b911f3ac7f306 100644
 --- a/build/config/compiler/BUILD.gn
 +++ b/build/config/compiler/BUILD.gn
-@@ -345,6 +345,10 @@ config("compiler") {
+@@ -342,6 +342,10 @@ config("compiler") {
        }
      }
  

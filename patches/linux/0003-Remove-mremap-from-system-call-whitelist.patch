@@ -1,4 +1,4 @@
-From c85db0aaa5b8166fa61cff70d60c454e14fc1f8c Mon Sep 17 00:00:00 2001
+From 4f9c63e681947684d8235aaa8d91c02ccc1145c6 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Fri, 19 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Remove mremap from system call whitelist
@@ -37,7 +37,7 @@ index 4a234d79144f9..5a35c7386d299 100644
      case __NR_sysinfo:
      case __NR_times:
 diff --git a/sandbox/policy/linux/bpf_renderer_policy_linux.cc b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
-index 029c067c07e55..c675f27027007 100644
+index c286da9348325..a1a23d51deb84 100644
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 @@ -109,7 +109,6 @@ ResultExpr RendererProcessPolicy::EvaluateSyscall(int sysno) const {

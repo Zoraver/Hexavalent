@@ -1,4 +1,4 @@
-From d26062e75e6eb04334fdc3917b7145586f805ed9 Mon Sep 17 00:00:00 2001
+From 446100309daae75bf0b9e273fb98a592c1aec6d3 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Wed, 23 Nov 2016 08:31:44 -0500
 Subject: [PATCH] disable network prediction by default
@@ -22,10 +22,10 @@ index 138289e8c01b4..2fc09182f06fc 100644
  
  // Enum representing possible values of the Preload Pages opt-in state.  Since
 diff --git a/chrome/browser/resources/settings/privacy_page/cookies_page.ts b/chrome/browser/resources/settings/privacy_page/cookies_page.ts
-index 0d268f95151c0..c0d50a59eb306 100644
+index 04f6ffed08b11..6e623db66177e 100644
 --- a/chrome/browser/resources/settings/privacy_page/cookies_page.ts
 +++ b/chrome/browser/resources/settings/privacy_page/cookies_page.ts
-@@ -48,7 +48,7 @@ enum NetworkPredictionOptions {
+@@ -49,7 +49,7 @@ enum NetworkPredictionOptions {
    WIFI_ONLY_DEPRECATED = 1,
    DISABLED = 2,
    EXTENDED = 3,
@@ -33,4 +33,4 @@ index 0d268f95151c0..c0d50a59eb306 100644
 +  DEFAULT = 2,
  }
  
- type FocusConfig = Map<string, (string|(() => void))>;
+ export interface SettingsCookiesPageElement {
