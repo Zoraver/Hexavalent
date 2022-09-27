@@ -1,4 +1,4 @@
-From bc9c8abcfbdd5f771b352780fb6288d0d0b78901 Mon Sep 17 00:00:00 2001
+From daf6de3b0f423494b447f874b1b54997ba597e27 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Restrict creation of dynamic code

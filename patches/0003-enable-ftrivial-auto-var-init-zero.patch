@@ -1,4 +1,4 @@
-From b64939e7703e9184e790d5c50755ab215ddc9d89 Mon Sep 17 00:00:00 2001
+From ea213d3d113d9b20fd603a6550020b1585a1821d Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Wed, 8 Apr 2020 20:48:17 -0400
 Subject: [PATCH] enable -ftrivial-auto-var-init=zero
@@ -8,7 +8,7 @@ Subject: [PATCH] enable -ftrivial-auto-var-init=zero
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/build/config/compiler/BUILD.gn b/build/config/compiler/BUILD.gn
-index b911f3ac7f306..334f9e07065b4 100644
+index e60969782820f..d4424b3cd86b3 100644
 --- a/build/config/compiler/BUILD.gn
 +++ b/build/config/compiler/BUILD.gn
 @@ -137,7 +137,7 @@ declare_args() {
@@ -20,7 +20,7 @@ index b911f3ac7f306..334f9e07065b4 100644
  
    # This argument is to control whether enabling text section splitting in the
    # final binary. When enabled, the separated text sections with prefix
-@@ -346,6 +346,10 @@ config("compiler") {
+@@ -337,6 +337,10 @@ config("compiler") {
        cflags += [ "-fwrapv" ]
      }
  
