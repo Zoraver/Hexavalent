@@ -1,4 +1,4 @@
-From 7e7ed3b4d4a2ce4c77ead99fe6f363bb0db4584a Mon Sep 17 00:00:00 2001
+From e27d3a1934fc6fa0c6b439ad6361888a5a155331 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Forbid dynamic code generation on Linux
@@ -17,7 +17,7 @@ code generation in the same processes on Linux via seccomp-bpf.
  7 files changed, 99 insertions(+), 11 deletions(-)
 
 diff --git a/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc b/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
-index 90df076e15eb8..dff6f3c86e152 100644
+index 561f5a6722e31..9a74b570bc905 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
 @@ -255,19 +255,19 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
@@ -44,7 +44,7 @@ index 90df076e15eb8..dff6f3c86e152 100644
  
    if (sysno == __NR_prctl)
 diff --git a/sandbox/policy/linux/bpf_audio_policy_linux.cc b/sandbox/policy/linux/bpf_audio_policy_linux.cc
-index 1ca63de3862b6..8b8fbf87f0220 100644
+index 8e32e62ff4f38..992df9fe89c21 100644
 --- a/sandbox/policy/linux/bpf_audio_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_audio_policy_linux.cc
 @@ -121,6 +121,9 @@ ResultExpr AudioProcessPolicy::EvaluateSyscall(int system_call_number) const {
@@ -58,7 +58,7 @@ index 1ca63de3862b6..8b8fbf87f0220 100644
            SyscallSets::IsSystemVSharedMemory(system_call_number)) {
          return Allow();
 diff --git a/sandbox/policy/linux/bpf_renderer_policy_linux.cc b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
-index 7ec641038af12..c286da9348325 100644
+index e40b4b2f608b8..f5e044fecad64 100644
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 @@ -48,10 +48,29 @@ ResultExpr RestrictIoctl() {
@@ -93,7 +93,7 @@ index 7ec641038af12..c286da9348325 100644
      // The baseline policy allows __NR_clock_gettime. Allow
      // clock_getres() for V8. crbug.com/329053.
 diff --git a/sandbox/policy/linux/bpf_renderer_policy_linux.h b/sandbox/policy/linux/bpf_renderer_policy_linux.h
-index 6db8ad264bb8b..71568fc2fd41d 100644
+index 6d8b255b49881..c06055db7ef0e 100644
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.h
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.h
 @@ -13,7 +13,7 @@ namespace policy {
@@ -116,7 +116,7 @@ index 6db8ad264bb8b..71568fc2fd41d 100644
  
  }  // namespace policy
 diff --git a/sandbox/policy/linux/bpf_service_policy_linux.cc b/sandbox/policy/linux/bpf_service_policy_linux.cc
-index 81a82378cea71..b90101544de1e 100644
+index b308874636a08..0ca7b7a67f88b 100644
 --- a/sandbox/policy/linux/bpf_service_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_service_policy_linux.cc
 @@ -20,7 +20,28 @@ using sandbox::bpf_dsl::ResultExpr;
@@ -149,7 +149,7 @@ index 81a82378cea71..b90101544de1e 100644
      case __NR_ioctl:
        return RestrictIoctl();
 diff --git a/sandbox/policy/linux/bpf_service_policy_linux.h b/sandbox/policy/linux/bpf_service_policy_linux.h
-index 5c44fdadeb1bc..7ff58983b6e81 100644
+index 0f33163d6a87f..48626cb8111fa 100644
 --- a/sandbox/policy/linux/bpf_service_policy_linux.h
 +++ b/sandbox/policy/linux/bpf_service_policy_linux.h
 @@ -16,13 +16,16 @@ namespace policy {
@@ -171,7 +171,7 @@ index 5c44fdadeb1bc..7ff58983b6e81 100644
  
  }  // namespace policy
 diff --git a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
-index 1cd8d5b6e6838..cc8741cea0667 100644
+index 802435b61b912..42c255103d591 100644
 --- a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 +++ b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 @@ -30,6 +30,8 @@
@@ -217,7 +217,7 @@ index 1cd8d5b6e6838..cc8741cea0667 100644
 +      }
 +      return std::make_unique<RendererProcessPolicy>(dynamic_code_can_be_disabled);
 +    }
- #if BUILDFLAG(ENABLE_PLUGINS)
+ #if BUILDFLAG(ENABLE_PPAPI)
      case sandbox::mojom::Sandbox::kPpapi:
        return std::make_unique<PpapiProcessPolicy>();
 @@ -189,9 +210,27 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
