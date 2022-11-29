@@ -1,4 +1,4 @@
-From 3bc41717f76de2ac3a83dd2ed0280842e4ffcf6a Mon Sep 17 00:00:00 2001
+From fe118366dcdd2fb42b8dada517a47ad9fce8be17 Mon Sep 17 00:00:00 2001
 From: qua3k <cliffmaceyak@gmail.com>
 Date: Mon, 18 Oct 2021 17:18:52 -0400
 Subject: [PATCH] Hexavalent: Make HTTPS-only mode the default

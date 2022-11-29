@@ -1,4 +1,4 @@
-From e27d3a1934fc6fa0c6b439ad6361888a5a155331 Mon Sep 17 00:00:00 2001
+From 0e3eaceb0a7af2e128ede3c8b370e288a905a27d Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Forbid dynamic code generation on Linux
@@ -17,10 +17,10 @@ code generation in the same processes on Linux via seccomp-bpf.
  7 files changed, 99 insertions(+), 11 deletions(-)
 
 diff --git a/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc b/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
-index 561f5a6722e31..9a74b570bc905 100644
+index d84e33999f161..91ab235e6383d 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/baseline_policy.cc
-@@ -255,19 +255,19 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
+@@ -258,19 +258,19 @@ ResultExpr EvaluateSyscallImpl(int fs_denied_errno,
  #if defined(__i386__) || defined(__x86_64__) || defined(__mips__) || \
      defined(__aarch64__)
    if (sysno == __NR_mmap)
@@ -44,10 +44,10 @@ index 561f5a6722e31..9a74b570bc905 100644
  
    if (sysno == __NR_prctl)
 diff --git a/sandbox/policy/linux/bpf_audio_policy_linux.cc b/sandbox/policy/linux/bpf_audio_policy_linux.cc
-index 8e32e62ff4f38..992df9fe89c21 100644
+index bb6424cf83d00..1d1ae13a695c4 100644
 --- a/sandbox/policy/linux/bpf_audio_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_audio_policy_linux.cc
-@@ -121,6 +121,9 @@ ResultExpr AudioProcessPolicy::EvaluateSyscall(int system_call_number) const {
+@@ -118,6 +118,9 @@ ResultExpr AudioProcessPolicy::EvaluateSyscall(int system_call_number) const {
  #endif
      default:
  #if defined(__x86_64__)
@@ -58,7 +58,7 @@ index 8e32e62ff4f38..992df9fe89c21 100644
            SyscallSets::IsSystemVSharedMemory(system_call_number)) {
          return Allow();
 diff --git a/sandbox/policy/linux/bpf_renderer_policy_linux.cc b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
-index e40b4b2f608b8..f5e044fecad64 100644
+index 5e4483a1019db..08d8574e2d7c7 100644
 --- a/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_renderer_policy_linux.cc
 @@ -48,10 +48,29 @@ ResultExpr RestrictIoctl() {
@@ -116,7 +116,7 @@ index 6d8b255b49881..c06055db7ef0e 100644
  
  }  // namespace policy
 diff --git a/sandbox/policy/linux/bpf_service_policy_linux.cc b/sandbox/policy/linux/bpf_service_policy_linux.cc
-index b308874636a08..0ca7b7a67f88b 100644
+index 32754e67be3d6..aff36f0119ee2 100644
 --- a/sandbox/policy/linux/bpf_service_policy_linux.cc
 +++ b/sandbox/policy/linux/bpf_service_policy_linux.cc
 @@ -20,7 +20,28 @@ using sandbox::bpf_dsl::ResultExpr;
