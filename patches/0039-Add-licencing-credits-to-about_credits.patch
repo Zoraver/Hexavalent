@@ -1,4 +1,4 @@
-From f10c1190a16c6fff47a86420933e147b1710976f Mon Sep 17 00:00:00 2001
+From b52e72bbd13cc4a3a3697057ccb08bf3501e6beb Mon Sep 17 00:00:00 2001
 From: loryeam <loryeam@gmail.com>
 Date: Wed, 1 Dec 2021 00:00:00 +0000
 Subject: [PATCH] Add licencing credits to about_credits
@@ -113,10 +113,10 @@ index 0000000000000..43d63fe135ffc
 +OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 +THE SOFTWARE.
 diff --git a/tools/licenses.py b/tools/licenses.py
-index c4ffc17fb5b37..89152a7dfe994 100755
+index de49fae95801e..a9950dad9f652 100755
 --- a/tools/licenses.py
 +++ b/tools/licenses.py
-@@ -140,6 +140,10 @@ ADDITIONAL_PATHS = (
+@@ -147,6 +147,10 @@ ADDITIONAL_PATHS = (
      # Fake directories to include the strongtalk and fdlibm licenses.
      os.path.join('v8', 'strongtalk'),
      os.path.join('v8', 'fdlibm'),
@@ -127,9 +127,9 @@ index c4ffc17fb5b37..89152a7dfe994 100755
  )
  
  
-@@ -347,6 +351,24 @@ SPECIAL_CASES = {
-         "License File":
-         "/third_party/swiftshader/third_party/SPIRV-Headers/LICENSE",
+@@ -384,6 +388,24 @@ SPECIAL_CASES = {
+         "License": "Apache 2.0",
+         "License File": "/third_party/selenium-atoms/LICENSE.closure",
      },
 +    os.path.join('debian'): {
 +      "Name": "Debian",

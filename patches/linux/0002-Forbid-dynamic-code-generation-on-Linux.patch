@@ -1,4 +1,4 @@
-From 0e3eaceb0a7af2e128ede3c8b370e288a905a27d Mon Sep 17 00:00:00 2001
+From 513eb1494c68b26868dff9d7f02d1aa61c4c99d3 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Forbid dynamic code generation on Linux
@@ -171,7 +171,7 @@ index 0f33163d6a87f..48626cb8111fa 100644
  
  }  // namespace policy
 diff --git a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
-index 802435b61b912..42c255103d591 100644
+index 8ff750b32b966..d79024b792e35 100644
 --- a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 +++ b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 @@ -30,6 +30,8 @@
@@ -191,7 +191,7 @@ index 802435b61b912..42c255103d591 100644
  
  #if BUILDFLAG(ENABLE_SCREEN_AI_SERVICE)
  #include "sandbox/policy/linux/bpf_screen_ai_policy_linux.h"
-@@ -168,8 +171,26 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
+@@ -172,8 +175,26 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
    switch (sandbox_type) {
      case sandbox::mojom::Sandbox::kGpu:
        return GetGpuProcessSandbox(options.use_amd_specific_policies);
@@ -220,7 +220,7 @@ index 802435b61b912..42c255103d591 100644
  #if BUILDFLAG(ENABLE_PPAPI)
      case sandbox::mojom::Sandbox::kPpapi:
        return std::make_unique<PpapiProcessPolicy>();
-@@ -189,9 +210,27 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
+@@ -193,9 +214,27 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
      case sandbox::mojom::Sandbox::kAudio:
        return std::make_unique<AudioProcessPolicy>();
      case sandbox::mojom::Sandbox::kService:
