@@ -1,4 +1,4 @@
-From d35dc7e963ab9763f71dbb5d2531d19bd58ff458 Mon Sep 17 00:00:00 2001
+From 986e68b3f500645e18adbb46fe6ae6bd540ba528 Mon Sep 17 00:00:00 2001
 From: Michael Gilbert <mgilbert@debian.org>
 Date: Sun, 15 Aug 2021 05:08:49 +0100
 Subject: [PATCH] Debian: disable the google api key warning when those aren't
@@ -9,12 +9,12 @@ Subject: [PATCH] Debian: disable the google api key warning when those aren't
  1 file changed, 3 deletions(-)
 
 diff --git a/chrome/browser/ui/startup/infobar_utils.cc b/chrome/browser/ui/startup/infobar_utils.cc
-index 62f3cda3ec6c2..c02147929cdc9 100644
+index bc6ca149b7cd0..6e0dcf895d979 100644
 --- a/chrome/browser/ui/startup/infobar_utils.cc
 +++ b/chrome/browser/ui/startup/infobar_utils.cc
-@@ -113,9 +113,6 @@ void AddInfoBarsIfNecessary(Browser* browser,
-     infobars::ContentInfoBarManager* infobar_manager =
-         infobars::ContentInfoBarManager::FromWebContents(web_contents);
+@@ -125,9 +125,6 @@ void AddInfoBarsIfNecessary(Browser* browser,
+     if (show_bad_flags_security_warnings)
+       chrome::ShowBadFlagsPrompt(web_contents);
  
 -    if (!google_apis::HasAPIKeyConfigured())
 -      GoogleApiKeysInfoBarDelegate::Create(infobar_manager);

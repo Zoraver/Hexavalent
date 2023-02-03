@@ -1,14 +1,14 @@
-From 9ab0c593287446b9ab6da39e82e705246dbd0f71 Mon Sep 17 00:00:00 2001
+From ed1341c4dc127c289514b8be6c2f330f1784126a Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Mon, 8 Mar 2021 16:53:47 -0500
 Subject: [PATCH] enable partitioning connections by default
 
 ---
- net/base/features.cc | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ net/base/features.cc | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/net/base/features.cc b/net/base/features.cc
-index 7fe93a759cbd0..f8201369b8a2f 100644
+index 41bff870df997..f3104fad36028 100644
 --- a/net/base/features.cc
 +++ b/net/base/features.cc
 @@ -87,11 +87,11 @@ BASE_FEATURE(kSplitCacheByNetworkIsolationKey,
@@ -25,7 +25,7 @@ index 7fe93a759cbd0..f8201369b8a2f 100644
  
  BASE_FEATURE(kForceIsolationInfoFrameOriginToTopLevelFrame,
               "ForceIsolationInfoFrameOriginToTopLevelFrame",
-@@ -99,19 +99,19 @@ BASE_FEATURE(kForceIsolationInfoFrameOriginToTopLevelFrame,
+@@ -99,15 +99,15 @@ BASE_FEATURE(kForceIsolationInfoFrameOriginToTopLevelFrame,
  
  BASE_FEATURE(kPartitionHttpServerPropertiesByNetworkIsolationKey,
               "PartitionHttpServerPropertiesByNetworkIsolationKey",
@@ -34,11 +34,6 @@ index 7fe93a759cbd0..f8201369b8a2f 100644
  
  BASE_FEATURE(kPartitionSSLSessionsByNetworkIsolationKey,
               "PartitionSSLSessionsByNetworkIsolationKey",
--             base::FEATURE_DISABLED_BY_DEFAULT);
-+             base::FEATURE_ENABLED_BY_DEFAULT);
- 
- BASE_FEATURE(kPartitionExpectCTStateByNetworkIsolationKey,
-              "PartitionExpectCTStateByNetworkIsolationKey",
 -             base::FEATURE_DISABLED_BY_DEFAULT);
 +             base::FEATURE_ENABLED_BY_DEFAULT);
  

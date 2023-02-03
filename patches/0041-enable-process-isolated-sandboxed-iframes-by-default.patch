@@ -1,4 +1,4 @@
-From 36c154298d0a1c1d30a13d11bdd8d9663a79a576 Mon Sep 17 00:00:00 2001
+From 93843449762f0a62424092d5628890174b62dd02 Mon Sep 17 00:00:00 2001
 From: June <june@eridan.me>
 Date: Sun, 8 May 2022 01:34:58 +0000
 Subject: [PATCH] enable process isolated sandboxed iframes by default
@@ -9,10 +9,10 @@ Signed-off-by: June <june@eridan.me>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/third_party/blink/common/features.cc b/third_party/blink/common/features.cc
-index a2f5577ded0a1..59f750d60961d 100644
+index c80deaad49987..1ce2b59b22b5b 100644
 --- a/third_party/blink/common/features.cc
 +++ b/third_party/blink/common/features.cc
-@@ -1721,7 +1721,7 @@ BASE_FEATURE(kWebRtcCombinedNetworkAndWorkerThread,
+@@ -1604,7 +1604,7 @@ BASE_FEATURE(kWebRtcCombinedNetworkAndWorkerThread,
  // sandboxes are isolated.
  BASE_FEATURE(kIsolateSandboxedIframes,
               "IsolateSandboxedIframes",
@@ -21,7 +21,7 @@ index a2f5577ded0a1..59f750d60961d 100644
  const base::FeatureParam<IsolateSandboxedIframesGrouping>::Option
      isolated_sandboxed_iframes_grouping_types[] = {
          {IsolateSandboxedIframesGrouping::kPerSite, "per-site"},
-@@ -1730,7 +1730,7 @@ const base::FeatureParam<IsolateSandboxedIframesGrouping>::Option
+@@ -1613,7 +1613,7 @@ const base::FeatureParam<IsolateSandboxedIframesGrouping>::Option
  const base::FeatureParam<IsolateSandboxedIframesGrouping>
      kIsolateSandboxedIframesGroupingParam{
          &kIsolateSandboxedIframes, "grouping",

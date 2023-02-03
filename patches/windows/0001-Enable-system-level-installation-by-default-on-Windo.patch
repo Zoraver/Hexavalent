@@ -1,4 +1,4 @@
-From 9534d0e220815a8b9ace62f65fc5c2650f6fa3e1 Mon Sep 17 00:00:00 2001
+From f896beba867e3f6f2aaa0eb0882ed44b62132f94 Mon Sep 17 00:00:00 2001
 From: loryeam <loryeam@gmail.com>
 Date: Fri, 24 Dec 2021 10:50:29 +0000
 Subject: [PATCH] Enable system-level installation by default on Windows
