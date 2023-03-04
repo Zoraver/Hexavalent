@@ -1,4 +1,4 @@
-From bea41ad0a134a561e5d3e342b7cd6865d79cf845 Mon Sep 17 00:00:00 2001
+From c2af2adf493f4d7673ab0551754ed0878bbfd206 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Restrict creation of dynamic code
@@ -16,7 +16,7 @@ It's inspired by PaX MPROTECT restrictions.
  2 files changed, 73 insertions(+)
 
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
-index 2500a56acd506..f00b28affe41b 100644
+index 8803b206b0845..b7c756cf34028 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -15,6 +15,7 @@
@@ -27,7 +27,7 @@ index 2500a56acd506..f00b28affe41b 100644
  #include <sys/stat.h>
  #include <sys/time.h>
  #include <sys/types.h>
-@@ -228,6 +229,31 @@ ResultExpr RestrictMmapFlags() {
+@@ -226,6 +227,31 @@ ResultExpr RestrictMmapFlags() {
    return If((flags & ~kAllowedMask) == 0, Allow()).Else(CrashSIGSYS());
  }
  
@@ -59,7 +59,7 @@ index 2500a56acd506..f00b28affe41b 100644
  ResultExpr RestrictMprotectFlags() {
    // The flags you see are actually the allowed ones, and the variable is a
    // "denied" mask because of the negation operator.
-@@ -246,6 +272,24 @@ ResultExpr RestrictMprotectFlags() {
+@@ -244,6 +270,24 @@ ResultExpr RestrictMprotectFlags() {
    return If((prot & ~kAllowedMask) == 0, Allow()).Else(CrashSIGSYS());
  }
  
@@ -84,7 +84,7 @@ index 2500a56acd506..f00b28affe41b 100644
  ResultExpr RestrictFcntlCommands() {
    // We also restrict the flags in F_SETFL. We don't want to permit flags with
    // a history of trouble such as O_DIRECT. The flags you see are actually the
-@@ -288,6 +332,17 @@ ResultExpr RestrictFcntlCommands() {
+@@ -286,6 +330,17 @@ ResultExpr RestrictFcntlCommands() {
    // clang-format on
  }
  
@@ -103,7 +103,7 @@ index 2500a56acd506..f00b28affe41b 100644
  ResultExpr RestrictSocketcallCommand() {
    // Unfortunately, we are unable to restrict the first parameter to
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
-index ec83410910eff..f70672818c8b4 100644
+index 171191ec518b5..4ea27bff6d563 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h
 @@ -40,11 +40,25 @@ SANDBOX_EXPORT bpf_dsl::ResultExpr RestrictIoctl();
