@@ -1,4 +1,4 @@
-From c7e9454e82100ee85ba7e5ce36460df3461d3c69 Mon Sep 17 00:00:00 2001
+From 2b0bfcedc5efa9f0a6b78a288785692f19a309e6 Mon Sep 17 00:00:00 2001
 From: qua3k <cliffmaceyak@gmail.com>
 Date: Tue, 19 Oct 2021 07:36:10 -0400
 Subject: [PATCH] Initial support for disabling V8's JIT
@@ -17,10 +17,10 @@ compiler; it is default disabled.
  8 files changed, 29 insertions(+)
 
 diff --git a/chrome/browser/about_flags.cc b/chrome/browser/about_flags.cc
-index 057c0d9ebc37d..e15bef43510e8 100644
+index fd95f0a22edc4..8fe6f7a761d0f 100644
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
-@@ -173,6 +173,7 @@
+@@ -170,6 +170,7 @@
  #include "device/gamepad/public/cpp/gamepad_features.h"
  #include "device/vr/buildflags/buildflags.h"
  #include "extensions/buildflags/buildflags.h"
@@ -28,7 +28,7 @@ index 057c0d9ebc37d..e15bef43510e8 100644
  #include "gpu/config/gpu_finch_features.h"
  #include "gpu/config/gpu_switches.h"
  #include "media/audio/audio_features.h"
-@@ -6126,6 +6127,10 @@ const FeatureEntry kFeatureEntries[] = {
+@@ -6208,6 +6209,10 @@ const FeatureEntry kFeatureEntries[] = {
       flag_descriptions::kDisableProcessReuseDescription, kOsDesktop,
       FEATURE_VALUE_TYPE(features::kDisableProcessReuse)},
  
@@ -40,10 +40,10 @@ index 057c0d9ebc37d..e15bef43510e8 100644
      {"enable-accessibility-live-caption",
       flag_descriptions::kEnableAccessibilityLiveCaptionName,
 diff --git a/chrome/browser/flag-metadata.json b/chrome/browser/flag-metadata.json
-index 6f62fa30588ae..10d2706739384 100644
+index 74b98dc31084d..ce08b77ff39ed 100644
 --- a/chrome/browser/flag-metadata.json
 +++ b/chrome/browser/flag-metadata.json
-@@ -1478,6 +1478,13 @@
+@@ -1502,6 +1502,13 @@
      // issues.
      "expiry_milestone": -1
    },
@@ -70,10 +70,10 @@ index 138ab3676967e..3ea6fd25ad954 100644
    "disable-webrtc-hw-encoding",
    "disallow-doc-written-script-loads",
 diff --git a/chrome/browser/flag_descriptions.cc b/chrome/browser/flag_descriptions.cc
-index 5669823de8be0..05b149a6a6f70 100644
+index c44d9224e9c6f..f7b5827448a64 100644
 --- a/chrome/browser/flag_descriptions.cc
 +++ b/chrome/browser/flag_descriptions.cc
-@@ -3126,6 +3126,11 @@ const char kVcBackgroundReplaceDescription[] =
+@@ -3179,6 +3179,11 @@ const char kVcBackgroundReplaceDescription[] =
      "Enables background replacement feature for video conferencing on "
      "chromebooks. THIS WILL OVERRIDE BACKGROUND BLUR.";
  
@@ -86,10 +86,10 @@ index 5669823de8be0..05b149a6a6f70 100644
  const char kV8VmFutureDescription[] =
      "This enables upcoming and experimental V8 VM features. "
 diff --git a/chrome/browser/flag_descriptions.h b/chrome/browser/flag_descriptions.h
-index 26c9c28e53128..fcd710cd889ba 100644
+index 3e3902f7077bb..20280d0777b46 100644
 --- a/chrome/browser/flag_descriptions.h
 +++ b/chrome/browser/flag_descriptions.h
-@@ -1777,6 +1777,9 @@ extern const char kVideoConferenceDescription[];
+@@ -1803,6 +1803,9 @@ extern const char kVideoConferenceDescription[];
  extern const char kVcBackgroundReplaceName[];
  extern const char kVcBackgroundReplaceDescription[];
  
@@ -100,7 +100,7 @@ index 26c9c28e53128..fcd710cd889ba 100644
  extern const char kV8VmFutureDescription[];
  
 diff --git a/gin/gin_features.cc b/gin/gin_features.cc
-index 1ef4db06a6dd2..bce8bc77215a4 100644
+index f96a8be099383..e77c3c205fe88 100644
 --- a/gin/gin_features.cc
 +++ b/gin/gin_features.cc
 @@ -69,6 +69,9 @@ BASE_FEATURE(kV8NoReclaimUnmodifiedWrappers,
@@ -114,22 +114,22 @@ index 1ef4db06a6dd2..bce8bc77215a4 100644
  // This is enabled in V8 by default. To test the performance impact, we are
  // going to disable this feature in a finch experiment.
 diff --git a/gin/gin_features.h b/gin/gin_features.h
-index 5b2d4498dcd86..65b12b2a49e11 100644
+index 22a47e26c495f..199d0232829ed 100644
 --- a/gin/gin_features.h
 +++ b/gin/gin_features.h
-@@ -27,6 +27,7 @@ GIN_EXPORT BASE_DECLARE_FEATURE(kV8FlushEmbeddedBlobICache);
- GIN_EXPORT BASE_DECLARE_FEATURE(kV8LazyFeedbackAllocation);
+@@ -30,6 +30,7 @@ GIN_EXPORT BASE_DECLARE_FEATURE(kV8LazyFeedbackAllocation);
  GIN_EXPORT BASE_DECLARE_FEATURE(kV8Maglev);
+ GIN_EXPORT BASE_DECLARE_FEATURE(kV8MegaDomIC);
  GIN_EXPORT BASE_DECLARE_FEATURE(kV8NoReclaimUnmodifiedWrappers);
 +GIN_EXPORT BASE_DECLARE_FEATURE(kV8NoJIT);
- GIN_EXPORT BASE_DECLARE_FEATURE(kV8CodeMemoryWriteProtection);
  GIN_EXPORT BASE_DECLARE_FEATURE(kV8OffThreadFinalization);
  GIN_EXPORT BASE_DECLARE_FEATURE(kV8OptimizeJavascript);
+ GIN_EXPORT BASE_DECLARE_FEATURE(kV8PerContextMarkingWorklist);
 diff --git a/gin/v8_initializer.cc b/gin/v8_initializer.cc
-index 1b77e0dd1f7f9..5a1520e3a560d 100644
+index e2a73449586ec..1b8887e1a065c 100644
 --- a/gin/v8_initializer.cc
 +++ b/gin/v8_initializer.cc
-@@ -298,6 +298,10 @@ void SetFlags(IsolateHolder::ScriptMode mode,
+@@ -301,6 +301,10 @@ void SetFlags(IsolateHolder::ScriptMode mode,
    SetV8FlagsIfOverridden(features::kV8SlowHistograms, "--slow-histograms",
                           "--no-slow-histograms");
  

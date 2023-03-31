@@ -1,4 +1,4 @@
-From cd4357518fb02401a77ff8f23e4af2a626da9bad Mon Sep 17 00:00:00 2001
+From b2328614801dc2d324ed2e86d37349ccee737826 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Forbid dynamic code generation on Linux
@@ -171,7 +171,7 @@ index 0f33163d6a87f..48626cb8111fa 100644
  
  }  // namespace policy
 diff --git a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
-index 8ff750b32b966..d79024b792e35 100644
+index 6b05d218531c9..b08157f4397bd 100644
 --- a/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 +++ b/sandbox/policy/linux/sandbox_seccomp_bpf_linux.cc
 @@ -30,6 +30,8 @@
@@ -183,7 +183,7 @@ index 8ff750b32b966..d79024b792e35 100644
  #include "sandbox/linux/seccomp-bpf-helpers/baseline_policy.h"
  #include "sandbox/linux/seccomp-bpf-helpers/sigsys_handlers.h"
  #include "sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.h"
-@@ -51,6 +53,7 @@
+@@ -52,6 +54,7 @@
  #include "sandbox/policy/linux/bpf_service_policy_linux.h"
  #include "sandbox/policy/linux/bpf_speech_recognition_policy_linux.h"
  #include "sandbox/policy/linux/bpf_utility_policy_linux.h"
@@ -191,10 +191,10 @@ index 8ff750b32b966..d79024b792e35 100644
  
  #if BUILDFLAG(ENABLE_SCREEN_AI_SERVICE)
  #include "sandbox/policy/linux/bpf_screen_ai_policy_linux.h"
-@@ -172,8 +175,26 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
+@@ -177,8 +180,26 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
    switch (sandbox_type) {
      case sandbox::mojom::Sandbox::kGpu:
-       return GetGpuProcessSandbox(options.use_amd_specific_policies);
+       return GetGpuProcessSandbox(options);
 -    case sandbox::mojom::Sandbox::kRenderer:
 -      return std::make_unique<RendererProcessPolicy>();
 +    case sandbox::mojom::Sandbox::kRenderer: {
@@ -220,7 +220,7 @@ index 8ff750b32b966..d79024b792e35 100644
  #if BUILDFLAG(ENABLE_PPAPI)
      case sandbox::mojom::Sandbox::kPpapi:
        return std::make_unique<PpapiProcessPolicy>();
-@@ -193,9 +214,27 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
+@@ -198,9 +219,27 @@ std::unique_ptr<BPFBasePolicy> SandboxSeccompBPF::PolicyForSandboxType(
      case sandbox::mojom::Sandbox::kAudio:
        return std::make_unique<AudioProcessPolicy>();
      case sandbox::mojom::Sandbox::kService:

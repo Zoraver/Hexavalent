@@ -1,4 +1,4 @@
-From 5029a32bb16c0e2aff5652a1e2ef6b8f4b790071 Mon Sep 17 00:00:00 2001
+From ad59415e15b60194729ecf76e7291b4a35863a2f Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Mon, 8 Mar 2021 16:53:47 -0500
 Subject: [PATCH] enable partitioning connections by default
@@ -8,10 +8,10 @@ Subject: [PATCH] enable partitioning connections by default
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/net/base/features.cc b/net/base/features.cc
-index 6292c91243175..89c7ecbf40255 100644
+index 16a8f64986f27..159deea8f62d5 100644
 --- a/net/base/features.cc
 +++ b/net/base/features.cc
-@@ -87,11 +87,11 @@ BASE_FEATURE(kSplitCacheByNetworkIsolationKey,
+@@ -91,23 +91,23 @@ BASE_FEATURE(kSplitCacheByNetworkIsolationKey,
  
  BASE_FEATURE(kSplitHostCacheByNetworkIsolationKey,
               "SplitHostCacheByNetworkIsolationKey",
@@ -22,10 +22,6 @@ index 6292c91243175..89c7ecbf40255 100644
               "PartitionConnectionsByNetworkIsolationKey",
 -             base::FEATURE_DISABLED_BY_DEFAULT);
 +             base::FEATURE_ENABLED_BY_DEFAULT);
- 
- BASE_FEATURE(kForceIsolationInfoFrameOriginToTopLevelFrame,
-              "ForceIsolationInfoFrameOriginToTopLevelFrame",
-@@ -99,15 +99,15 @@ BASE_FEATURE(kForceIsolationInfoFrameOriginToTopLevelFrame,
  
  BASE_FEATURE(kPartitionHttpServerPropertiesByNetworkIsolationKey,
               "PartitionHttpServerPropertiesByNetworkIsolationKey",
@@ -42,5 +38,5 @@ index 6292c91243175..89c7ecbf40255 100644
 -             base::FEATURE_DISABLED_BY_DEFAULT);
 +             base::FEATURE_ENABLED_BY_DEFAULT);
  
- BASE_FEATURE(kEnableDoubleKeyNetworkAnonymizationKey,
-              "EnableDoubleKeyNetworkAnonymizationKey",
+ BASE_FEATURE(kEnableCrossSiteFlagNetworkAnonymizationKey,
+              "EnableCrossSiteFlagNetworkAnonymizationKey",

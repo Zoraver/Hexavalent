@@ -1,4 +1,4 @@
-From d3e7b4ae5f7915a5792da0d060fa74277ac093d0 Mon Sep 17 00:00:00 2001
+From 151b8681dfd108b1827b677f5529e4755a8e6ed2 Mon Sep 17 00:00:00 2001
 From: loryeam <loryeam@gmail.com>
 Date: Wed, 1 Dec 2021 00:00:00 +0000
 Subject: [PATCH] Add licencing credits to about_credits
@@ -113,10 +113,10 @@ index 0000000000000..43d63fe135ffc
 +OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 +THE SOFTWARE.
 diff --git a/tools/licenses/licenses.py b/tools/licenses/licenses.py
-index 6f2e1a7077674..10e126c4a8271 100755
+index e56688f7ab2a8..3c278fd46cf40 100755
 --- a/tools/licenses/licenses.py
 +++ b/tools/licenses/licenses.py
-@@ -147,6 +147,10 @@ ADDITIONAL_PATHS = (
+@@ -146,6 +146,10 @@ ADDITIONAL_PATHS = (
      # Fake directories to include the strongtalk and fdlibm licenses.
      os.path.join('v8', 'strongtalk'),
      os.path.join('v8', 'fdlibm'),
@@ -127,7 +127,7 @@ index 6f2e1a7077674..10e126c4a8271 100755
  )
  
  
-@@ -384,6 +388,24 @@ SPECIAL_CASES = {
+@@ -383,6 +387,24 @@ SPECIAL_CASES = {
          "License": "Apache 2.0",
          "License File": "/third_party/selenium-atoms/LICENSE.closure",
      },
