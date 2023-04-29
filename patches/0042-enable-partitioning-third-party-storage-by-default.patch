@@ -1,4 +1,4 @@
-From 4141b99f2d81a065c24833b25e0bb32955721814 Mon Sep 17 00:00:00 2001
+From 34e4ddbc5e02f7b04911bde77ef70f06a2f98426 Mon Sep 17 00:00:00 2001
 From: Zoraver Kang <Zoraver@users.noreply.github.com>
 Date: Wed, 22 Feb 2023 19:05:28 -0500
 Subject: [PATCH] enable partitioning third-party storage by default
@@ -8,10 +8,10 @@ Subject: [PATCH] enable partitioning third-party storage by default
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/base/features.cc b/net/base/features.cc
-index 159deea8f62d5..06e6afc45a4fc 100644
+index 6cecd42e73957..00e140bec9b09 100644
 --- a/net/base/features.cc
 +++ b/net/base/features.cc
-@@ -277,7 +277,7 @@ BASE_FEATURE(kOptimisticBlockfileWrite,
+@@ -263,7 +263,7 @@ BASE_FEATURE(kBlockSetCookieHeader,
  // by the top level site to reduce fingerprinting.
  BASE_FEATURE(kThirdPartyStoragePartitioning,
               "ThirdPartyStoragePartitioning",

@@ -1,4 +1,4 @@
-From 7b3a880368e658351353fbfd7a8caff059ffbee6 Mon Sep 17 00:00:00 2001
+From 7b7781cf04efe659e13bc9f7375787f15433e1b2 Mon Sep 17 00:00:00 2001
 From: Zoraver Kang <Zoraver@users.noreply.github.com>
 Date: Sat, 4 Mar 2023 13:12:16 -0500
 Subject: [PATCH] enable reduce accept-language by default
@@ -8,15 +8,15 @@ Subject: [PATCH] enable reduce accept-language by default
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/services/network/public/cpp/features.cc b/services/network/public/cpp/features.cc
-index 53f6ecb2b473c..dbc228bb1ac82 100644
+index 884669e27241a..a70ba2b70c66e 100644
 --- a/services/network/public/cpp/features.cc
 +++ b/services/network/public/cpp/features.cc
-@@ -284,7 +284,7 @@ constexpr base::FeatureParam<std::string> kCacheTransparencyPervasivePayloads{
+@@ -288,7 +288,7 @@ constexpr base::FeatureParam<std::string> kCacheTransparencyPervasivePayloads{
  // accept-language. https://github.com/Tanych/accept-language
  BASE_FEATURE(kReduceAcceptLanguage,
               "ReduceAcceptLanguage",
 -             base::FEATURE_DISABLED_BY_DEFAULT);
 +             base::FEATURE_ENABLED_BY_DEFAULT);
  
- // Gate access to ReduceAcceptLanguage origin trial major code. Currently, All
- // ReduceAcceptLanguage feature codes are guarded by the feature flag
+ const base::FeatureParam<base::TimeDelta> kReduceAcceptLanguageCacheDuration{
+     &kReduceAcceptLanguage, "reduce-accept-language-cache-duration",

@@ -1,4 +1,4 @@
-From 644ba5f6bad698334718d2a5d2d0f83f613da3e9 Mon Sep 17 00:00:00 2001
+From 0a3d20e4bca9c8298d6525ae555991f94caeb84d Mon Sep 17 00:00:00 2001
 From: qua3k <cliffmaceyak@gmail.com>
 Date: Mon, 18 Oct 2021 17:18:52 -0400
 Subject: [PATCH] Hexavalent: Make HTTPS-only mode the default
@@ -8,10 +8,10 @@ Subject: [PATCH] Hexavalent: Make HTTPS-only mode the default
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/chrome/browser/ui/browser_ui_prefs.cc b/chrome/browser/ui/browser_ui_prefs.cc
-index 2e5a106e40c93..617241b68fdbc 100644
+index 1cffdfd1e4bf6..e677f50a47fca 100644
 --- a/chrome/browser/ui/browser_ui_prefs.cc
 +++ b/chrome/browser/ui/browser_ui_prefs.cc
-@@ -160,7 +160,7 @@ void RegisterBrowserUserPrefs(user_prefs::PrefRegistrySyncable* registry) {
+@@ -161,7 +161,7 @@ void RegisterBrowserUserPrefs(user_prefs::PrefRegistrySyncable* registry) {
  #endif
  
    registry->RegisterBooleanPref(

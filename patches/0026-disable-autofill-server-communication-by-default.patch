@@ -1,4 +1,4 @@
-From 262f509b9f2a999fc83b411ae92ddabfc2b19526 Mon Sep 17 00:00:00 2001
+From b6e8e086f7e6917734dce1a3d66cdd1bbfb3e4b7 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Tue, 1 Dec 2020 00:56:57 -0500
 Subject: [PATCH] disable autofill server communication by default
@@ -8,10 +8,10 @@ Subject: [PATCH] disable autofill server communication by default
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/components/autofill/core/common/autofill_features.cc b/components/autofill/core/common/autofill_features.cc
-index 6bcf611a99a59..bd5c7896ccc98 100644
+index c22621e32bef2..cf2d8d54758d4 100644
 --- a/components/autofill/core/common/autofill_features.cc
 +++ b/components/autofill/core/common/autofill_features.cc
-@@ -702,7 +702,7 @@ BASE_FEATURE(kAutofillCreateDataForTest,
+@@ -730,7 +730,7 @@ BASE_FEATURE(kAutofillLogToTerminal,
  // i.e., https://other.autofill.server:port/tbproxy/af/
  BASE_FEATURE(kAutofillServerCommunication,
               "AutofillServerCommunication",

@@ -1,4 +1,4 @@
-From ad59415e15b60194729ecf76e7291b4a35863a2f Mon Sep 17 00:00:00 2001
+From c65f75f0b2b83a0eba66d3772319ab62c74b0caa Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Mon, 8 Mar 2021 16:53:47 -0500
 Subject: [PATCH] enable partitioning connections by default
@@ -8,10 +8,10 @@ Subject: [PATCH] enable partitioning connections by default
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/net/base/features.cc b/net/base/features.cc
-index 16a8f64986f27..159deea8f62d5 100644
+index 8666689a78b6c..6cecd42e73957 100644
 --- a/net/base/features.cc
 +++ b/net/base/features.cc
-@@ -91,23 +91,23 @@ BASE_FEATURE(kSplitCacheByNetworkIsolationKey,
+@@ -100,23 +100,23 @@ BASE_FEATURE(kSplitCodeCacheByNetworkIsolationKey,
  
  BASE_FEATURE(kSplitHostCacheByNetworkIsolationKey,
               "SplitHostCacheByNetworkIsolationKey",
@@ -38,5 +38,5 @@ index 16a8f64986f27..159deea8f62d5 100644
 -             base::FEATURE_DISABLED_BY_DEFAULT);
 +             base::FEATURE_ENABLED_BY_DEFAULT);
  
- BASE_FEATURE(kEnableCrossSiteFlagNetworkAnonymizationKey,
-              "EnableCrossSiteFlagNetworkAnonymizationKey",
+ BASE_FEATURE(kEnableCrossSiteFlagNetworkIsolationKey,
+              "EnableCrossSiteFlagNetworkIsolationKey",

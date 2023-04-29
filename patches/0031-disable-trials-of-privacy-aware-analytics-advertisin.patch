@@ -1,4 +1,4 @@
-From 996c9b9d2d25d65075d0653dad971d3449cd8214 Mon Sep 17 00:00:00 2001
+From ea882a4393082fe7896f2b6a09634cd9549026ee Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Wed, 4 Aug 2021 03:29:04 -0400
 Subject: [PATCH] disable trials of privacy-aware analytics/advertising APIs
@@ -8,10 +8,10 @@ Subject: [PATCH] disable trials of privacy-aware analytics/advertising APIs
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/components/privacy_sandbox/privacy_sandbox_prefs.cc b/components/privacy_sandbox/privacy_sandbox_prefs.cc
-index dbcf61627205f..2952dd827ef63 100644
+index b97d1209550f4..9d486bbe3f4f6 100644
 --- a/components/privacy_sandbox/privacy_sandbox_prefs.cc
 +++ b/components/privacy_sandbox/privacy_sandbox_prefs.cc
-@@ -101,7 +101,7 @@ namespace privacy_sandbox {
+@@ -103,7 +103,7 @@ namespace privacy_sandbox {
  
  void RegisterProfilePrefs(PrefRegistrySimple* registry) {
    registry->RegisterBooleanPref(
