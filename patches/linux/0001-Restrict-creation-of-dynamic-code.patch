@@ -1,4 +1,4 @@
-From 0303a0c9c65c90d1a5c3cf50a000fcf6e7a7b65e Mon Sep 17 00:00:00 2001
+From baa77426c5ba1af9758121866f473e7d1810ab95 Mon Sep 17 00:00:00 2001
 From: qua3k <qua3kr@gmail.com>
 Date: Thu, 4 Nov 2021 00:00:00 +0000
 Subject: [PATCH] Restrict creation of dynamic code
@@ -16,7 +16,7 @@ It's inspired by PaX MPROTECT restrictions.
  2 files changed, 73 insertions(+)
 
 diff --git a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
-index 8803b206b0845..b7c756cf34028 100644
+index 33b2bda7886e2..5e2ac41fb0af7 100644
 --- a/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 +++ b/sandbox/linux/seccomp-bpf-helpers/syscall_parameters_restrictions.cc
 @@ -15,6 +15,7 @@
@@ -27,7 +27,7 @@ index 8803b206b0845..b7c756cf34028 100644
  #include <sys/stat.h>
  #include <sys/time.h>
  #include <sys/types.h>
-@@ -226,6 +227,31 @@ ResultExpr RestrictMmapFlags() {
+@@ -231,6 +232,31 @@ ResultExpr RestrictMmapFlags() {
    return If((flags & ~kAllowedMask) == 0, Allow()).Else(CrashSIGSYS());
  }
  
@@ -59,7 +59,7 @@ index 8803b206b0845..b7c756cf34028 100644
  ResultExpr RestrictMprotectFlags() {
    // The flags you see are actually the allowed ones, and the variable is a
    // "denied" mask because of the negation operator.
-@@ -244,6 +270,24 @@ ResultExpr RestrictMprotectFlags() {
+@@ -249,6 +275,24 @@ ResultExpr RestrictMprotectFlags() {
    return If((prot & ~kAllowedMask) == 0, Allow()).Else(CrashSIGSYS());
  }
  
@@ -84,7 +84,7 @@ index 8803b206b0845..b7c756cf34028 100644
  ResultExpr RestrictFcntlCommands() {
    // We also restrict the flags in F_SETFL. We don't want to permit flags with
    // a history of trouble such as O_DIRECT. The flags you see are actually the
-@@ -286,6 +330,17 @@ ResultExpr RestrictFcntlCommands() {
+@@ -291,6 +335,17 @@ ResultExpr RestrictFcntlCommands() {
    // clang-format on
  }
  

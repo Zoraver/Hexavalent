@@ -1,4 +1,4 @@
-From 40c49db60e9c179a469eb459554ceb10c209d4fa Mon Sep 17 00:00:00 2001
+From 389b0acb82869e3e781daf5fb04e0abe583d16d1 Mon Sep 17 00:00:00 2001
 From: loryeam <loryeam@gmail.com>
 Date: Wed, 1 Dec 2021 00:00:00 +0000
 Subject: [PATCH] Add licencing credits to about_credits
@@ -113,7 +113,7 @@ index 0000000000000..43d63fe135ffc
 +OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 +THE SOFTWARE.
 diff --git a/tools/licenses/licenses.py b/tools/licenses/licenses.py
-index e56688f7ab2a8..3c278fd46cf40 100755
+index d775931a09f38..be9bfd994aff3 100755
 --- a/tools/licenses/licenses.py
 +++ b/tools/licenses/licenses.py
 @@ -146,6 +146,10 @@ ADDITIONAL_PATHS = (

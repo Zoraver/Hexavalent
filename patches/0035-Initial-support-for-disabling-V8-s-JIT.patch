@@ -1,4 +1,4 @@
-From a948c6687dc7598a6fa68f49e9e74a52913b17d5 Mon Sep 17 00:00:00 2001
+From 45f977992c50b93b0a42af8d83c1c8113c0094fc Mon Sep 17 00:00:00 2001
 From: qua3k <cliffmaceyak@gmail.com>
 Date: Tue, 19 Oct 2021 07:36:10 -0400
 Subject: [PATCH] Initial support for disabling V8's JIT
@@ -17,10 +17,10 @@ compiler; it is default disabled.
  8 files changed, 29 insertions(+)
 
 diff --git a/chrome/browser/about_flags.cc b/chrome/browser/about_flags.cc
-index d158893700f36..86538729a67a7 100644
+index e2d74e803159c..8bc6c0bdc35b7 100644
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
-@@ -174,6 +174,7 @@
+@@ -175,6 +175,7 @@
  #include "device/gamepad/public/cpp/gamepad_features.h"
  #include "device/vr/buildflags/buildflags.h"
  #include "extensions/buildflags/buildflags.h"
@@ -28,7 +28,7 @@ index d158893700f36..86538729a67a7 100644
  #include "gpu/config/gpu_finch_features.h"
  #include "gpu/config/gpu_switches.h"
  #include "media/audio/audio_features.h"
-@@ -6537,6 +6538,10 @@ const FeatureEntry kFeatureEntries[] = {
+@@ -6725,6 +6726,10 @@ const FeatureEntry kFeatureEntries[] = {
       flag_descriptions::kDisableProcessReuseDescription, kOsDesktop,
       FEATURE_VALUE_TYPE(features::kDisableProcessReuse)},
  
@@ -40,10 +40,10 @@ index d158893700f36..86538729a67a7 100644
      {"enable-accessibility-live-caption",
       flag_descriptions::kEnableAccessibilityLiveCaptionName,
 diff --git a/chrome/browser/flag-metadata.json b/chrome/browser/flag-metadata.json
-index 126c8f23ea107..ac6ba54daa770 100644
+index 9fc861a5ba107..f25cef20f497e 100644
 --- a/chrome/browser/flag-metadata.json
 +++ b/chrome/browser/flag-metadata.json
-@@ -1524,6 +1524,13 @@
+@@ -1587,6 +1587,13 @@
      // issues.
      "expiry_milestone": -1
    },
@@ -58,7 +58,7 @@ index 126c8f23ea107..ac6ba54daa770 100644
      "name": "disable-virtual-keyboard",
      "owners": [ "dvallet", "essential-inputs-team@google.com" ],
 diff --git a/chrome/browser/flag-never-expire-list.json b/chrome/browser/flag-never-expire-list.json
-index d47f3537c0d57..97a35aba341f7 100644
+index 74a6f5f2187e8..2517a35e81329 100644
 --- a/chrome/browser/flag-never-expire-list.json
 +++ b/chrome/browser/flag-never-expire-list.json
 @@ -30,6 +30,7 @@
@@ -70,10 +70,10 @@ index d47f3537c0d57..97a35aba341f7 100644
    "disable-webrtc-hw-encoding",
    "disallow-doc-written-script-loads",
 diff --git a/chrome/browser/flag_descriptions.cc b/chrome/browser/flag_descriptions.cc
-index 3cc0dd97bb637..a64a12245dfe1 100644
+index cbf801b055f67..053f190452ffc 100644
 --- a/chrome/browser/flag_descriptions.cc
 +++ b/chrome/browser/flag_descriptions.cc
-@@ -3230,6 +3230,11 @@ const char kVcSegmentationModelDescription[] =
+@@ -3339,6 +3339,11 @@ const char kVcSegmentationModelDescription[] =
      "Allows a different segmentation model to be used for blur and relighting, "
      "which may reduce the workload on the GPU.";
  
@@ -86,10 +86,10 @@ index 3cc0dd97bb637..a64a12245dfe1 100644
  const char kV8VmFutureDescription[] =
      "This enables upcoming and experimental V8 VM features. "
 diff --git a/chrome/browser/flag_descriptions.h b/chrome/browser/flag_descriptions.h
-index 0b63a4fc3358e..368f242c5dfa0 100644
+index 2ce6692612e1d..2574abdfb4d22 100644
 --- a/chrome/browser/flag_descriptions.h
 +++ b/chrome/browser/flag_descriptions.h
-@@ -1843,6 +1843,9 @@ extern const char kVcBackgroundReplaceDescription[];
+@@ -1911,6 +1911,9 @@ extern const char kVcBackgroundReplaceDescription[];
  extern const char kVcSegmentationModelName[];
  extern const char kVcSegmentationModelDescription[];
  
@@ -100,7 +100,7 @@ index 0b63a4fc3358e..368f242c5dfa0 100644
  extern const char kV8VmFutureDescription[];
  
 diff --git a/gin/gin_features.cc b/gin/gin_features.cc
-index 850166070ab87..f75a51342815a 100644
+index e460c1d268fb0..daf6e868e2d01 100644
 --- a/gin/gin_features.cc
 +++ b/gin/gin_features.cc
 @@ -69,6 +69,9 @@ BASE_FEATURE(kV8NoReclaimUnmodifiedWrappers,
@@ -114,7 +114,7 @@ index 850166070ab87..f75a51342815a 100644
  // This is enabled in V8 by default. To test the performance impact, we are
  // going to disable this feature in a finch experiment.
 diff --git a/gin/gin_features.h b/gin/gin_features.h
-index b23864ef538ff..f560dc7416552 100644
+index 112c0788c0216..8a8751dfa616f 100644
 --- a/gin/gin_features.h
 +++ b/gin/gin_features.h
 @@ -30,6 +30,7 @@ GIN_EXPORT BASE_DECLARE_FEATURE(kV8LazyFeedbackAllocation);
@@ -126,7 +126,7 @@ index b23864ef538ff..f560dc7416552 100644
  GIN_EXPORT BASE_DECLARE_FEATURE(kV8OptimizeJavascript);
  GIN_EXPORT BASE_DECLARE_FEATURE(kV8PerContextMarkingWorklist);
 diff --git a/gin/v8_initializer.cc b/gin/v8_initializer.cc
-index 9978ba7e4378b..4339a46738db1 100644
+index 1b7843b959217..acec629d68704 100644
 --- a/gin/v8_initializer.cc
 +++ b/gin/v8_initializer.cc
 @@ -301,6 +301,10 @@ void SetFlags(IsolateHolder::ScriptMode mode,

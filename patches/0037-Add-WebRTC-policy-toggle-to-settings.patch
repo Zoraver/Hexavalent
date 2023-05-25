@@ -1,4 +1,4 @@
-From 8d2f6a03739fd3653a8265dda470c815170e669b Mon Sep 17 00:00:00 2001
+From 847966df872fb89d7c22b2a153d0bb20cc60adb6 Mon Sep 17 00:00:00 2001
 From: qua3k <cliffmaceyak@gmail.com>
 Date: Fri, 22 Oct 2021 00:00:00 +0000
 Subject: [PATCH] Add WebRTC policy toggle to settings
@@ -18,10 +18,10 @@ This adds a user facing toggle for changing WebRTC IP handling policy.
  create mode 100644 chrome/browser/resources/settings/privacy_page/webrtc_policy_dropdown.ts
 
 diff --git a/chrome/app/settings_strings.grdp b/chrome/app/settings_strings.grdp
-index df00e47b5ab21..c62a6ddff422c 100644
+index 0bdaa8b8558b4..d94bf84f81f74 100644
 --- a/chrome/app/settings_strings.grdp
 +++ b/chrome/app/settings_strings.grdp
-@@ -2565,6 +2565,24 @@
+@@ -2607,6 +2607,24 @@
    <message name="IDS_SETTINGS_HTTPS_ONLY_MODE_DESCRIPTION_ADVANCED_PROTECTION" desc="Secondary, continued explanation of HTTPS-Only Mode in Security settings when the user can't change the setting">
      Upgrade navigations to HTTPS and warn you before loading sites that don't support it. You can't change this setting because you have Advanced Protection enabled.
    </message>
@@ -47,10 +47,10 @@ index df00e47b5ab21..c62a6ddff422c 100644
      Manage certificates
    </message>
 diff --git a/chrome/browser/extensions/api/settings_private/prefs_util.cc b/chrome/browser/extensions/api/settings_private/prefs_util.cc
-index 71137a5ad4259..9afbd334cf195 100644
+index 55aeb88605e9e..0ecf7d234b188 100644
 --- a/chrome/browser/extensions/api/settings_private/prefs_util.cc
 +++ b/chrome/browser/extensions/api/settings_private/prefs_util.cc
-@@ -330,6 +330,8 @@ const PrefsUtil::TypedPrefMap& PrefsUtil::GetAllowlistedKeys() {
+@@ -339,6 +339,8 @@ const PrefsUtil::TypedPrefMap& PrefsUtil::GetAllowlistedKeys() {
        settings_api::PrefType::PREF_TYPE_BOOLEAN;
    (*s_allowlist)[::kGeneratedHttpsFirstModePref] =
        settings_api::PrefType::PREF_TYPE_BOOLEAN;
@@ -60,10 +60,10 @@ index 71137a5ad4259..9afbd334cf195 100644
    // Cookies page
    (*s_allowlist)[::prefs::kCookieControlsMode] =
 diff --git a/chrome/browser/resources/settings/BUILD.gn b/chrome/browser/resources/settings/BUILD.gn
-index 7cd038168ad55..fb2fe26f30ab7 100644
+index 8c34f24ad8130..3ae8678197990 100644
 --- a/chrome/browser/resources/settings/BUILD.gn
 +++ b/chrome/browser/resources/settings/BUILD.gn
-@@ -167,6 +167,7 @@ build_webui("build") {
+@@ -166,6 +166,7 @@ build_webui("build") {
      "privacy_page/security_keys_phones_list.ts",
      "privacy_page/security_keys_phones_dialog.ts",
      "privacy_page/security_page.ts",
@@ -72,7 +72,7 @@ index 7cd038168ad55..fb2fe26f30ab7 100644
      "privacy_sandbox/interest_item.ts",
      "reset_page/reset_page.ts",
 diff --git a/chrome/browser/resources/settings/privacy_page/security_page.html b/chrome/browser/resources/settings/privacy_page/security_page.html
-index 6b1d76b5f60ed..3821bbda191ae 100644
+index 37b8e676116e8..a0dd078216659 100644
 --- a/chrome/browser/resources/settings/privacy_page/security_page.html
 +++ b/chrome/browser/resources/settings/privacy_page/security_page.html
 @@ -8,6 +8,11 @@
@@ -98,17 +98,17 @@ index 6b1d76b5f60ed..3821bbda191ae 100644
        <settings-toggle-button
           id="httpsOnlyModeToggle"
 diff --git a/chrome/browser/resources/settings/privacy_page/security_page.ts b/chrome/browser/resources/settings/privacy_page/security_page.ts
-index 527339544b4f8..2b5e17991fd0c 100644
+index e8eefffdfd50d..9e1f64d25cfa2 100644
 --- a/chrome/browser/resources/settings/privacy_page/security_page.ts
 +++ b/chrome/browser/resources/settings/privacy_page/security_page.ts
-@@ -13,6 +13,7 @@ import '../icons.html.js';
- import '../prefs/prefs.js';
+@@ -13,6 +13,7 @@ import '../controls/settings_toggle_button.js';
+ import '../icons.html.js';
  import '../settings_shared.css.js';
  import '../simple_confirmation_dialog.js';
 +import './webrtc_policy_dropdown.js';
  
+ import {PrivacyPageBrowserProxy, PrivacyPageBrowserProxyImpl} from '/shared/settings/privacy_page/privacy_page_browser_proxy.js';
  import {HelpBubbleMixin} from 'chrome://resources/cr_components/help_bubble/help_bubble_mixin.js';
- import {I18nMixin} from 'chrome://resources/cr_elements/i18n_mixin.js';
 diff --git a/chrome/browser/resources/settings/privacy_page/webrtc_policy_dropdown.html b/chrome/browser/resources/settings/privacy_page/webrtc_policy_dropdown.html
 new file mode 100644
 index 0000000000000..bf0e16ae44fed
@@ -183,7 +183,7 @@ index 0000000000000..bf0e16ae44fed
 +</div>
 diff --git a/chrome/browser/resources/settings/privacy_page/webrtc_policy_dropdown.ts b/chrome/browser/resources/settings/privacy_page/webrtc_policy_dropdown.ts
 new file mode 100644
-index 0000000000000..a6a48b613f85f
+index 0000000000000..bc238b012b888
 --- /dev/null
 +++ b/chrome/browser/resources/settings/privacy_page/webrtc_policy_dropdown.ts
 @@ -0,0 +1,46 @@
@@ -192,11 +192,11 @@ index 0000000000000..a6a48b613f85f
 +// found in the LICENSE file.
 +
 +import '../settings_shared.css.js';
-+import '../controls/settings_dropdown_menu.js';
++import '/shared/settings/controls/settings_dropdown_menu.js';
 +
 +import {html, PolymerElement} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 +
-+import {DropdownMenuOptionList} from '../controls/settings_dropdown_menu.js';
++import {DropdownMenuOptionList} from '/shared/settings/controls/settings_dropdown_menu.js';
 +import {loadTimeData} from '../i18n_setup.js';
 +import {getTemplate} from './webrtc_policy_dropdown.html.js';
 +
@@ -234,10 +234,10 @@ index 0000000000000..a6a48b613f85f
 +customElements.define(
 +    SettingsWebRtcPolicyMenuElement.is, SettingsWebRtcPolicyMenuElement);
 diff --git a/chrome/browser/ui/webui/settings/settings_localized_strings_provider.cc b/chrome/browser/ui/webui/settings/settings_localized_strings_provider.cc
-index 5e3b52106eb55..85dd0a918583a 100644
+index 6d488e842bbd7..58fe570f840b2 100644
 --- a/chrome/browser/ui/webui/settings/settings_localized_strings_provider.cc
 +++ b/chrome/browser/ui/webui/settings/settings_localized_strings_provider.cc
-@@ -1705,6 +1705,12 @@ void AddPrivacyStrings(content::WebUIDataSource* html_source,
+@@ -1741,6 +1741,12 @@ void AddPrivacyStrings(content::WebUIDataSource* html_source,
      {"httpsOnlyModeDescription", IDS_SETTINGS_HTTPS_ONLY_MODE_DESCRIPTION},
      {"httpsOnlyModeDescriptionAdvancedProtection",
       IDS_SETTINGS_HTTPS_ONLY_MODE_DESCRIPTION_ADVANCED_PROTECTION},

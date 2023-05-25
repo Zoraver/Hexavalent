@@ -1,4 +1,4 @@
-From 382903d4af64724f3d0c3c8791ba6e121e7474ec Mon Sep 17 00:00:00 2001
+From 0b689ccee046d99f8712238b6b03e1774bc08e4e Mon Sep 17 00:00:00 2001
 From: Zoraver Kang <Zoraver@users.noreply.github.com>
 Date: Sun, 10 Oct 2021 21:59:16 -0400
 Subject: [PATCH] use Google Chrome branding for client hints
@@ -8,7 +8,7 @@ Subject: [PATCH] use Google Chrome branding for client hints
  1 file changed, 1 insertion(+)
 
 diff --git a/components/embedder_support/user_agent_utils.cc b/components/embedder_support/user_agent_utils.cc
-index 9d9a0aac10a35..f167a037059ab 100644
+index 86e97af7108a5..bbc583aba184b 100644
 --- a/components/embedder_support/user_agent_utils.cc
 +++ b/components/embedder_support/user_agent_utils.cc
 @@ -246,6 +246,7 @@ const blink::UserAgentBrandList GetUserAgentBrandList(

@@ -1,4 +1,4 @@
-From 875489856446957d71eb29ac9cb2657f36fe2ea4 Mon Sep 17 00:00:00 2001
+From 60b4e8ab52980e2831cec03a9b57b31c7922e731 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Sun, 16 Jun 2019 16:01:31 -0400
 Subject: [PATCH] disable third party cookies by default
@@ -8,7 +8,7 @@ Subject: [PATCH] disable third party cookies by default
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/components/content_settings/core/browser/cookie_settings.cc b/components/content_settings/core/browser/cookie_settings.cc
-index 185a247e7224d..81ee5f2d65c39 100644
+index 7ce34161ef3cb..42eeb19304efe 100644
 --- a/components/content_settings/core/browser/cookie_settings.cc
 +++ b/components/content_settings/core/browser/cookie_settings.cc
 @@ -69,7 +69,7 @@ void CookieSettings::RegisterProfilePrefs(
