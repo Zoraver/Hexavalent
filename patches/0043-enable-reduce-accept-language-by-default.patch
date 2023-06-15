@@ -1,4 +1,4 @@
-From 2c8b57cef99ae797d1c2991f754145478c8d55a1 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Zoraver Kang <Zoraver@users.noreply.github.com>
 Date: Sat, 4 Mar 2023 13:12:16 -0500
 Subject: [PATCH] enable reduce accept-language by default

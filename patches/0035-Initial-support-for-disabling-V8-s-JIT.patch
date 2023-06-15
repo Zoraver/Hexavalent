@@ -1,4 +1,4 @@
-From 45f977992c50b93b0a42af8d83c1c8113c0094fc Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: qua3k <cliffmaceyak@gmail.com>
 Date: Tue, 19 Oct 2021 07:36:10 -0400
 Subject: [PATCH] Initial support for disabling V8's JIT
@@ -17,7 +17,7 @@ compiler; it is default disabled.
  8 files changed, 29 insertions(+)
 
 diff --git a/chrome/browser/about_flags.cc b/chrome/browser/about_flags.cc
-index e2d74e803159c..8bc6c0bdc35b7 100644
+index 5a5a48ef70c66..afe1d31454f37 100644
 --- a/chrome/browser/about_flags.cc
 +++ b/chrome/browser/about_flags.cc
 @@ -175,6 +175,7 @@
@@ -28,7 +28,7 @@ index e2d74e803159c..8bc6c0bdc35b7 100644
  #include "gpu/config/gpu_finch_features.h"
  #include "gpu/config/gpu_switches.h"
  #include "media/audio/audio_features.h"
-@@ -6725,6 +6726,10 @@ const FeatureEntry kFeatureEntries[] = {
+@@ -6729,6 +6730,10 @@ const FeatureEntry kFeatureEntries[] = {
       flag_descriptions::kDisableProcessReuseDescription, kOsDesktop,
       FEATURE_VALUE_TYPE(features::kDisableProcessReuse)},
  
@@ -40,7 +40,7 @@ index e2d74e803159c..8bc6c0bdc35b7 100644
      {"enable-accessibility-live-caption",
       flag_descriptions::kEnableAccessibilityLiveCaptionName,
 diff --git a/chrome/browser/flag-metadata.json b/chrome/browser/flag-metadata.json
-index 9fc861a5ba107..f25cef20f497e 100644
+index 4867b746ef7c6..6fdd4c9b0d990 100644
 --- a/chrome/browser/flag-metadata.json
 +++ b/chrome/browser/flag-metadata.json
 @@ -1587,6 +1587,13 @@
@@ -70,10 +70,10 @@ index 74a6f5f2187e8..2517a35e81329 100644
    "disable-webrtc-hw-encoding",
    "disallow-doc-written-script-loads",
 diff --git a/chrome/browser/flag_descriptions.cc b/chrome/browser/flag_descriptions.cc
-index cbf801b055f67..053f190452ffc 100644
+index 5f8cbcf0a7bfe..424f853da0658 100644
 --- a/chrome/browser/flag_descriptions.cc
 +++ b/chrome/browser/flag_descriptions.cc
-@@ -3339,6 +3339,11 @@ const char kVcSegmentationModelDescription[] =
+@@ -3345,6 +3345,11 @@ const char kVcSegmentationModelDescription[] =
      "Allows a different segmentation model to be used for blur and relighting, "
      "which may reduce the workload on the GPU.";
  
@@ -86,10 +86,10 @@ index cbf801b055f67..053f190452ffc 100644
  const char kV8VmFutureDescription[] =
      "This enables upcoming and experimental V8 VM features. "
 diff --git a/chrome/browser/flag_descriptions.h b/chrome/browser/flag_descriptions.h
-index 2ce6692612e1d..2574abdfb4d22 100644
+index f619cb04f24a3..9c1ad0d357208 100644
 --- a/chrome/browser/flag_descriptions.h
 +++ b/chrome/browser/flag_descriptions.h
-@@ -1911,6 +1911,9 @@ extern const char kVcBackgroundReplaceDescription[];
+@@ -1914,6 +1914,9 @@ extern const char kVcBackgroundReplaceDescription[];
  extern const char kVcSegmentationModelName[];
  extern const char kVcSegmentationModelDescription[];
  
