@@ -14,10 +14,10 @@ disable user-level installation.
  1 file changed, 5 insertions(+)
 
 diff --git a/chrome/installer/util/initial_preferences.cc b/chrome/installer/util/initial_preferences.cc
-index cdf01dfce6c21..f63ead4ed38be 100644
+index dd368e9748606..d9c0285318b5b 100644
 --- a/chrome/installer/util/initial_preferences.cc
 +++ b/chrome/installer/util/initial_preferences.cc
-@@ -144,6 +144,11 @@ void InitialPreferences::InitializeFromCommandLine(
+@@ -157,6 +157,11 @@ void InitialPreferences::InitializeFromCommandLine(
      }
    }
  

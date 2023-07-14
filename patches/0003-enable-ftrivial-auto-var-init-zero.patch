@@ -8,7 +8,7 @@ Subject: [PATCH] enable -ftrivial-auto-var-init=zero
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/build/config/compiler/BUILD.gn b/build/config/compiler/BUILD.gn
-index e91ed9c20f8f1..ca158dc377548 100644
+index 01c8696439768..110d4542e6f2a 100644
 --- a/build/config/compiler/BUILD.gn
 +++ b/build/config/compiler/BUILD.gn
 @@ -135,7 +135,7 @@ declare_args() {
@@ -20,7 +20,7 @@ index e91ed9c20f8f1..ca158dc377548 100644
  
    # Zero init has favorable performance/size tradeoffs for Chrome OS
    # but was not evaluated for other platforms.
-@@ -352,6 +352,10 @@ config("compiler") {
+@@ -381,6 +381,10 @@ config("compiler") {
        cflags += [ "-fwrapv" ]
      }
  

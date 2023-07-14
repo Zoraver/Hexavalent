@@ -8,10 +8,10 @@ Subject: [PATCH] enable partitioning third-party storage by default
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/base/features.cc b/net/base/features.cc
-index 67054ab08f57d..b681f498b4ffc 100644
+index 3a3b9a1b5afa3..6deb78010ea3d 100644
 --- a/net/base/features.cc
 +++ b/net/base/features.cc
-@@ -254,7 +254,7 @@ BASE_FEATURE(kBlockSetCookieHeader,
+@@ -258,7 +258,7 @@ BASE_FEATURE(kBlockSetCookieHeader,
  // by the top level site to reduce fingerprinting.
  BASE_FEATURE(kThirdPartyStoragePartitioning,
               "ThirdPartyStoragePartitioning",

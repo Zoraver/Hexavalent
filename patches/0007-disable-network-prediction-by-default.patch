@@ -22,7 +22,7 @@ index 02f682dc1eba1..2f36fa7fd1c08 100644
  
  // Enum representing possible values of the Preload Pages opt-in state. These
 diff --git a/chrome/browser/resources/settings/privacy_page/cookies_page.ts b/chrome/browser/resources/settings/privacy_page/cookies_page.ts
-index 6693a8a1c60b5..ec661f854486a 100644
+index fdb3834b93faa..e07712539eb38 100644
 --- a/chrome/browser/resources/settings/privacy_page/cookies_page.ts
 +++ b/chrome/browser/resources/settings/privacy_page/cookies_page.ts
 @@ -48,7 +48,7 @@ export enum NetworkPredictionOptions {
